@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приглашение</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    body, html { height: 100%; overflow-x: hidden; }
+    body { display: flex; justify-content: center; align-items: center; background: #111; color: #fff; }
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      animation: fadeIn 2s ease forwards;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; animation: slideUp 1s ease forwards; }
+    p { font-size: 1.2rem; margin-bottom: 20px; animation: slideUp 1s ease forwards 0.5s; }
+    img { max-width: 100%; border-radius: 12px; animation: fadeIn 2s ease forwards 1s; }
+    button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      background: #ff4081;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      animation: slideUp 1s ease forwards 1.5s;
+    }
+    button:hover { background: #e73370; }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Привет, [Имя подруги]!</h1>
+    <p>Я хочу пригласить тебя на маленькое приключение 😄</p>
+    <img src="your-image.jpg" alt="Приглашение">
+    <br><br>
+    <button onclick="alert('Ура! Мы идём на свидание! 🎉')">Принять приглашение</button>
+  </div>
+</body>
+</html>
