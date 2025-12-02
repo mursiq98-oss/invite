@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тестовая интерактивная страница</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #050515 100%);
+        overflow: hidden;
+        color: white;
+    }
+
+    .container {
+        text-align: center;
+        max-width: 400px;
+        position: relative;
+    }
+
+    img {
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .phrase {
+        font-size: 24px;
+        margin: 10px 0;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #ff5a5a;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 18px;
+        margin-top: 20px;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    /* Мелкие звёзды на фоне */
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        width: 2px;
+        height: 2px;
+        opacity: 0.8;
+        animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        from {opacity: 0.2;}
+        to {opacity: 1;}
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <img id="img1" src="https://placekitten.com/400/300" alt="Кот">
+    <img id="img2" src="https://placekitten.com/401/300" alt="Кот">
+    <img id="img3" src="https://placekitten.com/402/300" alt="Кот">
+    <img id="img4" src="https://placekitten.com/403/300" alt="Кот">
+    <div id="phrase" class="phrase"></div>
+    <a id="btn" class="btn" href="https://www.google.com" target="_blank">Перейти</a>
+</div>
+
+<script>
+const images = [
+    document.getElementById('img1'),
+    document.getElementById('img2'),
+    document.getElementById('img3'),
+    document.getElementById('img4')
+];
+
+const phrases = ['нехороший человек','мяу мяу','гав гав','смешно','тварь','дебильный','дурной'];
+const phraseDiv = document.getElementById('phrase');
+const btn = document.getElementById('btn');
+
+let index = 0;
+let phraseIndex = 0;
+
+function showNextImage() {
+    if(index > 0) images[index-1].style.opacity = 0;
+    if(index < images.length) {
+        images[index].style.opacity = 1;
+        phraseDiv.style.opacity = 0;
+        setTimeout(showNextPhrase, 1000);
+        index++;
+    } else {
+        btn.style.opacity = 1; // Показать кнопку в конце
+    }
+}
+
+function showNextPhrase() {
+    phraseDiv.textContent = phrases[phraseIndex];
+    phraseDiv.style.opacity = 1;
+    phraseIndex++;
+    if(phraseIndex < phrases.length) {
+        setTimeout(showNextImage, 1500);
+    } else {
+        setTimeout(showNextImage, 1500);
+    }
+}
+
+// Создать звёзды на фоне
+for(let i=0;i<100;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=(Math.random()*3+1)+'px';
+    star.style.height=star.style.width;
+    star.style.animationDuration=(Math.random()*2+1)+'s';
+    document.body.appendChild(star);
+}
+
+// Запуск анимации
+showNextImage();
+</script>
+</body>
+</html>
