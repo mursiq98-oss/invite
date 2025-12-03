@@ -2,62 +2,34 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ничегооо</title>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-
+<title>Test</title>
 <style>
     body {
-        background: #1c1c1c;
-        color: #d4d4d4;
-        font-family: 'Courier Prime', monospace;
-        font-size: 24px;
-        padding: 40px;
+        background: #111;
+        color: #fff;
+        font-family: monospace;
+        font-size: 22px;
         white-space: pre-wrap;
-    }
-    .cursor {
-        display: inline-block;
-        width: 10px;
-        height: 24px;
-        background: #d4d4d4;
-        margin-left: 4px;
-        animation: blink 0.7s infinite;
-    }
-    @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0; }
-        100% { opacity: 1; }
+        padding: 30px;
     }
 </style>
 </head>
-
 <body>
-<div id="output"></div><div class="cursor"></div>
 
-<!-- Звук печати -->
-<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
+<div id="output"></div>
 
 <script>
-    const text = `нахуя?
-да не знаю просто так захотелось пум пумм да да атвыаол ываолы втаолы вола выола 
-ытавы т авыотла ывлаот ывтао влытаолыват ыолват ыолват ывлоат ывлоа 
-тывалоты аол`;
+    const text = `Привет!
+Это тестовая печать.
+Если ты видишь этот текст — значит работает.`;
 
-    const output = document.getElementById("output");
-    const typeSound = document.getElementById("typeSound");
     let i = 0;
-
-    const speed = 35; // ускоренная скорость печати
 
     function typeWriter() {
         if (i < text.length) {
-            output.innerHTML += text.charAt(i);
-
-            typeSound.currentTime = 0;
-            typeSound.play();
-
+            document.getElementById("output").textContent += text[i];
             i++;
-            setTimeout(typeWriter, speed + Math.random() * 25);
+            setTimeout(typeWriter, 40);
         }
     }
 
