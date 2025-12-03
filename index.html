@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ничего</title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+
 <style>
     body {
         background: #1c1c1c;
@@ -30,21 +31,31 @@
         100% { opacity: 1; }
     }
 
-    .mini-img {
-        width: 150px;
+    .image-block {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .image-block img {
+        width: 260px;
         border-radius: 10px;
-        margin-bottom: 20px;
     }
 </style>
 </head>
-<body>
 
-<!-- мини-картинка -->
-<img src="img.jpg" alt="image" class="mini-img">
+<body>
 
 <div id="output"></div><div class="cursor"></div>
 
-<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
+<audio id="typeSound"
+    src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3"
+    preload="auto">
+</audio>
+
+<!-- Блок для картинки -->
+<div class="image-block">
+    <img src="photo_2025-12-03_17-55-44.jpg" alt="image">
+</div>
 
 <script>
     const text = `нахуя?
@@ -62,7 +73,9 @@
     const output = document.getElementById("output");
     const typeSound = document.getElementById("typeSound");
     let i = 0;
-    const speed = 60;
+
+    // скорость печати
+    const speed = 80;
 
     function typeWriter() {
         if (i < text.length) {
@@ -78,5 +91,6 @@
 
     typeWriter();
 </script>
+
 </body>
 </html>
