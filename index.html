@@ -2,40 +2,62 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Typing Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ничегооо</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
 <style>
     body {
-        background: #111;
-        color: #fff;
-        font-family: monospace;
-        font-size: 22px;
+        background: #1c1c1c;
+        color: #d4d4d4;
+        font-family: 'Courier Prime', monospace;
+        font-size: 24px;
+        padding: 40px;
         white-space: pre-wrap;
-        padding: 30px;
+    }
+    .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 24px;
+        background: #d4d4d4;
+        margin-left: 4px;
+        animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
     }
 </style>
 </head>
 <body>
+<div id="output"></div><div class="cursor"></div>
 
-<div id="output"></div>
+<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
 
 <script>
-    const text = `нахуя?
-да не знаю просто так захотелось пум пумм да да атвыаол ываолы втаолы вола выола
-ытавы т авыотла ывлаот ывтао влытаолыват ыолват ыолват ывлоат ывлоа
-тывалоты аол`;
+    const text = `нах у я?
+да не знаю просто так захотелось пум пумм да да атвыаол ываолы
+втаолы вола выола ытавы т авыотла ывлаот ывтао влытаолыват
+ыолват ыолват ывлоат ывлоа тывалоты аол`;
 
+    const output = document.getElementById("output");
+    const typeSound = document.getElementById("typeSound");
     let i = 0;
+    const speed = 40;
 
     function typeWriter() {
         if (i < text.length) {
-            document.getElementById("output").textContent += text[i];
+            output.innerHTML += text.charAt(i);
+
+            typeSound.currentTime = 0;
+            typeSound.play();
+
             i++;
-            setTimeout(typeWriter, 40);
+            setTimeout(typeWriter, speed + Math.random() * 30);
         }
     }
 
     typeWriter();
 </script>
-
 </body>
 </html>
