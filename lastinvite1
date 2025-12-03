@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Старая печатная машинка</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+    body {
+        background: #1c1c1c; 
+        color: #d4d4d4;
+        font-family: 'Courier Prime', monospace;
+        font-size: 24px;
+        padding: 40px;
+        white-space: pre-wrap;
+    }
+    .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 24px;
+        background: #d4d4d4;
+        margin-left: 4px;
+        animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+<div id="output"></div><div class="cursor"></div>
+
+<!-- Звук печати -->
+<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
+
+<script>
+    const text = `привет! это пример текста, который печатается как на старой машинке.
+тёмная сторона, ровный шрифт, эффект настоящей печати.`;
+
+    const output = document.getElementById("output");
+    const typeSound = document.getElementById("typeSound");
+    let i = 0;
+    const speed = 80; // базовая скорость печати (мс)
+
+    function typeWriter() {
+        if (i < text.length) {
+            // Добавляем букву
+            output.innerHTML += text.charAt(i);
+
+            // Воспроизводим звук печати
+            typeSound.currentTime = 0;
+            typeSound.play();
+
+            i++;
+            // Случайная вариация скорости, чтобы печать выглядела естественной
+            setTimeout(typeWriter, speed + Math.random() * 50);
+        }
+    }
+
+    typeWriter();
+</script>
+</body>
+</html>
