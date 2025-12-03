@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ничего</title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-
 <style>
     body {
         background: #1c1c1c;
@@ -15,7 +14,6 @@
         padding: 40px;
         white-space: pre-wrap;
     }
-
     .cursor {
         display: inline-block;
         width: 10px;
@@ -24,38 +22,40 @@
         margin-left: 4px;
         animation: blink 0.7s infinite;
     }
-
     @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0; }
         100% { opacity: 1; }
     }
 
-    .image-block {
+    #finalImage {
+        display: none;
         margin-top: 40px;
-        text-align: center;
+        max-width: 340px;
+        border-radius: 12px;
     }
 
-    .image-block img {
-        width: 260px;
-        border-radius: 10px;
+    #finalText {
+        display: none;
+        margin-top: 25px;
+        font-size: 26px;
+        opacity: 0;
+        transition: opacity 1.2s ease;
     }
 </style>
 </head>
-
 <body>
 
-<div id="output"></div><div class="cursor"></div>
+<div id="output"></div><div class="cursor" id="cursor"></div>
 
-<audio id="typeSound"
-    src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3"
-    preload="auto">
-</audio>
+<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
 
-<!-- Блок для картинки -->
-<div class="image-block">
-    <img src="photo_2025-12-03_17-55-44.jpg" alt="image">
-</div>
+<!-- ТВОЯ КАРТИНКА — заменишь photo.png на свою -->
+<img id="finalImage" src="photo_2025-12-03_17-55-44.jpg" alt="image">
+
+<!-- Финальная фраза -->
+<div id="finalText">смешно? регина повесила в туалете 
+    и да, если ты это читаешь — спасибо, что вообще дочитала </div>
 
 <script>
     const text = `нахуя?
@@ -70,23 +70,39 @@
 переживаю как будтто на экзмене каком то , но больше за то что ты отхуесосишь за этот мув такой , поэтому надеюсь такого не будет pleeease.  
 надеюсь цветочки понравятся ну и мнии приколы. `;
 
+
     const output = document.getElementById("output");
     const typeSound = document.getElementById("typeSound");
-    let i = 0;
+    const finalImage = document.getElementById("finalImage");
+    const finalText = document.getElementById("finalText");
+    const cursor = document.getElementById("cursor");
 
-    // скорость печати
-    const speed = 80;
+    let i = 0;
+    const speed = 55;
 
     function typeWriter() {
         if (i < text.length) {
             output.innerHTML += text.charAt(i);
-
             typeSound.currentTime = 0;
             typeSound.play();
-
             i++;
-            setTimeout(typeWriter, speed + Math.random() * 30);
+            setTimeout(typeWriter, speed + Math.random() * 40);
+        } else {
+            cursor.style.display = "none";
+            showImage();
         }
+    }
+
+    function showImage() {
+        finalImage.style.display = "block";
+
+        // Показываем финальную фразу через 1 секунду
+        setTimeout(() => {
+            finalText.style.display = "block";
+            requestAnimationFrame(() => {
+                finalText.style.opacity = 1;
+            });
+        }, 1000);
     }
 
     typeWriter();
