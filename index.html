@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ничегооо</title>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+
 <style>
     body {
-        background: #1c1c1c; 
+        background: #1c1c1c;
         color: #d4d4d4;
         font-family: 'Courier Prime', monospace;
         font-size: 24px;
@@ -29,6 +30,7 @@
     }
 </style>
 </head>
+
 <body>
 <div id="output"></div><div class="cursor"></div>
 
@@ -36,30 +38,31 @@
 <audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
 
 <script>
-    const text = нахуя?
-        да не знаю просто так захотелось пум пумм да да атвыаол ываолы втаолы вола выола ытавы т авыотла ывлаот ывтао влытаолыват ыолват ыолват ывлоат ывлоа тывалоты аол`;
+    const text = `нахуя?
+да не знаю просто так захотелось пум пумм да да атвыаол ываолы втаолы вола выола 
+ытавы т авыотла ывлаот ывтао влытаолыват ыолват ыолват ывлоат ывлоа 
+тывалоты аол`;
 
     const output = document.getElementById("output");
     const typeSound = document.getElementById("typeSound");
     let i = 0;
-    const speed = 95; // базовая скорость печати (мс)
+
+    const speed = 35; // ускоренная скорость печати
 
     function typeWriter() {
         if (i < text.length) {
-            // Добавляем букву
             output.innerHTML += text.charAt(i);
 
-            // Воспроизводим звук печати
             typeSound.currentTime = 0;
             typeSound.play();
 
             i++;
-            // Случайная вариация скорости, чтобы печать выглядела естественной
-            setTimeout(typeWriter, speed + Math.random() * 50);
+            setTimeout(typeWriter, speed + Math.random() * 25);
         }
     }
 
     typeWriter();
 </script>
+
 </body>
 </html>
