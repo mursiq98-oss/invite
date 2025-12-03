@@ -14,6 +14,7 @@
         padding: 40px;
         white-space: pre-wrap;
     }
+
     .cursor {
         display: inline-block;
         width: 10px;
@@ -22,14 +23,25 @@
         margin-left: 4px;
         animation: blink 0.7s infinite;
     }
+
     @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0; }
         100% { opacity: 1; }
     }
+
+    .mini-img {
+        width: 150px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
 </style>
 </head>
 <body>
+
+<!-- мини-картинка -->
+<img src="img.jpg" alt="image" class="mini-img">
+
 <div id="output"></div><div class="cursor"></div>
 
 <audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
@@ -50,7 +62,7 @@
     const output = document.getElementById("output");
     const typeSound = document.getElementById("typeSound");
     let i = 0;
-    const speed = 40;
+    const speed = 60;
 
     function typeWriter() {
         if (i < text.length) {
