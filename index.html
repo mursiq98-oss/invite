@@ -3,91 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok-приглашение</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<title>Текст пером</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat', sans-serif; }
-  html, body { height:100%; overflow:hidden; background:#000; }
-  body { display:flex; justify-content:center; align-items:center; }
-
-  /* Фоновое видео + градиент */
-  .background-container {
-    position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
-    background: linear-gradient(120deg, #ff416c, #ff4b2b);
-  }
-  .background-video {
-    position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover;
-    z-index:-1; opacity:0.5;
+  body {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background: #fdf6e3; /* Цвет старинной бумаги */
+    overflow:hidden;
   }
 
-  .container {
-    text-align:center; max-width:600px; padding:30px;
-    background: rgba(0,0,0,0.5); border-radius:20px;
+  .ink-text {
+    font-family: 'Great Vibes', cursive;
+    font-size:4rem;
+    color:#2b1a0f; /* Цвет чернил */
+    border-bottom: 4px solid #2b1a0f; /* Имитация подчеркнутой линии */
+    padding-bottom:10px;
+    position: relative;
+    text-align:center;
   }
 
-  h1, p, img, button {
-    opacity:0; transform:translateY(50px);
+  /* Лёгкие «брызги чернил» */
+  .ink-text::before, .ink-text::after {
+    content:'';
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#2b1a0f;
+    border-radius:50%;
+    opacity:0.4;
+  }
+  .ink-text::before { top:-10px; left:20%; }
+  .ink-text::after { bottom:10px; right:15%; }
+
+  /* Анимация появления букв */
+  .ink-text span {
+    opacity:0;
+    display:inline-block;
+    animation:fadeInLetter 0.6s forwards;
   }
 
-  h1 { font-size:3rem; margin-bottom:20px; animation:fadeSlide 1s forwards; }
-  p { font-size:1.3rem; margin-bottom:30px; animation:fadeSlide 1s forwards; }
-  img { width:100%; border-radius:15px; margin-bottom:30px; transform:scale(0.8); animation:popIn 1s forwards; }
-  button {
-    padding:15px 30px; font-size:1.1rem; border:none; border-radius:12px;
-    background:#fff; color:#ff416c; font-weight:bold; cursor:pointer;
-    transition: transform 0.3s, background 0.3s;
-  }
-  button:hover { transform:scale(1.1); background:#ffe0e5; animation:blink 1s infinite; }
-
-  /* Анимации */
-  @keyframes fadeSlide {
-    0% { opacity:0; transform:translateY(50px); }
-    100% { opacity:1; transform:translateY(0); }
-  }
-  @keyframes popIn {
-    0% { opacity:0; transform:scale(0.8); }
-    100% { opacity:1; transform:scale(1); }
-  }
-  @keyframes blink {
-    0%,100%{opacity:1;}
-    50%{opacity:0.5;}
+  @keyframes fadeInLetter {
+    0% { opacity:0; transform:translateY(20px) rotate(-5deg);}
+    100% { opacity:1; transform:translateY(0) rotate(0deg);}
   }
 </style>
 </head>
 <body>
 
-<div class="background-container"></div>
-
-<video class="background-video" autoplay muted loop>
-  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-</video>
-
-<div class="container">
-  <h1 id="title">Привет, подруга!</h1>
-  <p id="text">Хочу пригласить тебя на супер-приключение 😄</p>
-  <img id="image" src="https://via.placeholder.com/500x300.png?text=Твоя+картинка" alt="Тестовое изображение">
-  <button id="btn">Принять приглашение</button>
+<div class="ink-text" id="inkText">
+  <!-- Буквы будут добавлены через JS для анимации -->
 </div>
 
-<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
 <script>
-  const title = document.getElementById('title');
-  const text = document.getElementById('text');
-  const image = document.getElementById('image');
-  const btn = document.getElementById('btn');
-  const music = document.getElementById('music');
+  const text = "Привет, подруга!";
+  const container = document.getElementById('inkText');
 
-  // Запуск музыки при клике по кнопке body (браузеры не позволяют автозапуск звука)
-  document.body.addEventListener('click', ()=>music.play(), {once:true});
-
-  // Анимация поэтапно
-  setTimeout(()=> title.style.opacity=1, 500);
-  setTimeout(()=> { title.style.transform='translateY(0)'; text.style.opacity=1; text.style.transform='translateY(0)'; }, 1200);
-  setTimeout(()=> { image.style.opacity=1; image.style.transform='scale(1)'; }, 2000);
-  setTimeout(()=> { btn.style.opacity=1; btn.style.transform='translateY(0)'; }, 2800);
-
-  btn.addEventListener('click', ()=> alert('Ура! Мы идём на свидание! 🎉'));
+  text.split('').forEach((char, index) => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    span.style.animationDelay = `${index * 0.1}s`;
+    container.appendChild(span);
+  });
 </script>
 
 </body>
