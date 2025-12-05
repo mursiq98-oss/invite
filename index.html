@@ -29,31 +29,14 @@
         50% { opacity: 0; }
         100% { opacity: 1; }
     }
-
-    #finalImage {
-        display: none;
-        margin-top: 40px;
-        max-width: 340px;
-        border-radius: 12px;
-    }
-
-    #finalText {
-        display: none;
-        margin-top: 25px;
-        font-size: 26px;
-        opacity: 0;
-        transition: opacity 1.2s ease;
-    }
 </style>
 </head>
 <body>
 
-<div id="output"></div><div class="cursor" id="cursor"></div>
+<div id="output"></div>
+<div class="cursor" id="cursor"></div>
 
 <audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
-
-
-</div>
 
 <script>
     const text = `
@@ -73,41 +56,26 @@
 Твои неверные глаза.
 `;
 
-
     const output = document.getElementById("output");
     const typeSound = document.getElementById("typeSound");
-    const finalImage = document.getElementById("finalImage");
-    const finalText = document.getElementById("finalText");
     const cursor = document.getElementById("cursor");
 
     let i = 0;
     const speed = 35;
 
-    finalImage.style.display = "none";
-    finalText.style.display = "none";
-
     function typeWriter() {
         if (i < text.length) {
             output.innerHTML += text.charAt(i);
+
+            // Попытка проиграть звук (браузеры иногда блокируют)
             typeSound.currentTime = 0;
-            typeSound.play();
+            typeSound.play().catch(() => {});
+
             i++;
             setTimeout(typeWriter, speed + Math.random() * 40);
         } else {
             cursor.style.display = "none";
-            showImage();
         }
-    }
-
-    function showImage() {
-        finalImage.style.display = "block";
-
-        setTimeout(() => {
-            finalText.style.display = "block";
-            requestAnimationFrame(() => {
-                finalText.style.opacity = 1;
-            });
-        }, 1000);
     }
 
     typeWriter();
