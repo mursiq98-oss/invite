@@ -67,7 +67,7 @@
         if (i < text.length) {
             output.innerHTML += text.charAt(i);
 
-            // Попытка проиграть звук (браузеры иногда блокируют)
+            // Звук (браузер может блокировать — обрабатываем безопасно)
             typeSound.currentTime = 0;
             typeSound.play().catch(() => {});
 
