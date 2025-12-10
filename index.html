@@ -16,6 +16,7 @@
         padding: 40px;
         white-space: pre-wrap;
     }
+
     .cursor {
         display: inline-block;
         width: 10px;
@@ -23,7 +24,9 @@
         background: #d4d4d4;
         margin-left: 4px;
         animation: blink 0.7s infinite;
+        vertical-align: bottom;
     }
+
     @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0; }
@@ -33,58 +36,52 @@
 </head>
 <body>
 
-<div id="output"></div>
-<div class="cursor" id="cursor"></div>
+<div id="output"></div><span class="cursor" id="cursor"></span>
 
-<audio id="typeSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
+<audio id="typeSound" preload="auto">
+    <source src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-    const text = `
+const text = `
 Я мечтою ловил уходящие тени,
 Уходящие тени погасавшего дня,
 Я на башню всходил, и дрожали ступени,
 И дрожали ступени под ногой у меня.
+
 И чем выше я шел, тем ясней рисовались,
 Тем ясней рисовались очертанья вдали,
 И какие-то звуки вокруг раздавались,
 Вкруг меня раздавались от Небес и Земли.
-Чем я выше всходил, тем светлее сверкали,
-Тем светлее сверкали выси дремлющих гор,
-И сияньем прощальным как будто ласкали,
-Словно нежно ласкали отуманенный взор.
-А внизу подо мною уж ночь наступила,
-Уже ночь наступила для уснувшей Земли,
-Для меня же блистало дневное светило,
-Огневое светило догорало вдали.
-Я узнал, как ловить уходящие тени,
-Уходящие тени потускневшего дня,
-И все выше я шел, и дрожали ступени,
-И дрожали ступени под ногой у меня. `
+`;
 
-    const output = document.getElementById("output");
-    const typeSound = document.getElementById("typeSound");
-    const cursor = document.getElementById("cursor");
+const output = document.getElementById("output");
+const cursor = document.getElementById("cursor");
+const sound = document.getElementById("typeSound");
 
-    let i = 0;
-    const speed = 35;
+let i = 0;
+const speed = 40;
 
-    function typeWriter() {
-        if (i < text.length) {
-            output.innerHTML += text.charAt(i);
+function typeWriter() {
+    if (i < text.length) {
+        output.textContent += text[i];
 
-            // Звук (браузер может блокировать — обрабатываем безопасно)
-            typeSound.currentTime = 0;
-            typeSound.play().catch(() => {});
+        // звук — безопасно
+        try {
+            sound.currentTime = 0;
+            sound.play();
+        } catch (e) {}
 
-            i++;
-            setTimeout(typeWriter, speed + Math.random() * 40);
-        } else {
-            cursor.style.display = "none";
-        }
+        i++;
+        setTimeout(typeWriter, speed);
+    } else {
+        cursor.style.display = "none";
     }
+}
 
-    typeWriter();
+typeWriter();
 </script>
 
 </body>
 </html>
+
